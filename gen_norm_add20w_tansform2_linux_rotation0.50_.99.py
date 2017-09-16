@@ -683,7 +683,7 @@ def edge_transparent(img):
 
 
 
-def main(n=50000, nm=chr(np.random.randint(97, 122)), rotation_key=True, scale_key=True, transform_key=True,
+def main(n=1000000, nm=chr(np.random.randint(97, 122)), rotation_key=True, scale_key=True, transform_key=True,
          transform_cycle=False, adjustlevel_key=True,
          back_ground_key=True,
          size_x=128, size_y=128):
@@ -819,13 +819,13 @@ def main(n=50000, nm=chr(np.random.randint(97, 122)), rotation_key=True, scale_k
     print 'all time :', time.time() - start
 
 if __name__ == '__main__':
-    # cores = 4
-    # for a in range(cores):
-    #     # name= str(time.time())+ chr(np.random.randint(97, 122))
-    #     time.sleep(2)
-    #     p = multiprocessing.Process(target=main, args=(cores,))
-    #     p.start()
-    #     print "p.pid:", p.pid
-    #     print "p.name:", p.name
-    #     print "p.is_alive:", p.is_alive()
-    main()
+    cores = 4
+    for a in range(cores):
+        # name= str(time.time())+ chr(np.random.randint(97, 122))
+        time.sleep(2)
+        p = multiprocessing.Process(target=main, args=(cores,))
+        p.start()
+        print "p.pid:", p.pid
+        print "p.name:", p.name
+        print "p.is_alive:", p.is_alive()
+    #main()
