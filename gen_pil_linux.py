@@ -18,7 +18,6 @@ import matplotlib.pyplot as plt
 
 def path_arr(path):
     '''
-
     :param path:
     :return: count list
     '''
