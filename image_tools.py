@@ -3,7 +3,7 @@
 # @Author  : A_star
 import cv2
 import numpy as np
-
+from PIL import Image
 
 def rotation(img, rotation_min=-10, rotation_max=10):
     '''
@@ -27,8 +27,8 @@ def scale(img,  scale_min=80, scale_max=120):
     '''
     rows, cols, channel = img.shape
     scale_factor = np.random.randint(scale_min, scale_max) * 0.01
-    m = cv2.getRotationMatrix2D((cols / 2, rows / 2), 0, scale_factor)
-    dst = cv2.warpAffine(img, m, (cols, rows), borderMode=cv2.BORDER_CONSTANT)
+    M = cv2.getRotationMatrix2D((cols / 2, rows / 2), 0, scale_factor)
+    dst = cv2.warpAffine(img, M, (cols, rows), borderMode=cv2.BORDER_CONSTANT)
     return dst, scale_factor
 
 
@@ -45,6 +45,22 @@ def transform(img, rect, dst):
     warped = cv2.warpPerspective(img, M, (size_x, size_y))
     return warped
 
+
+def add_background_pil(image, back_image, xx=0, yy=0):
+    '''
+    add background
+    :param image:
+    :param back_image:
+    :param xx:int
+    :param yy:int
+    :return:
+    '''
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGBA)  # change colour
+    image = Image.fromarray(image)
+    back_image = cv2.cvtColor(back_image, cv2.COLOR_BGR2RGB)  # change colour
+    back_image = Image.fromarray(back_image)
+    back_image.paste(image, (xx,yy), image)
+    return back_image
 
 
 
